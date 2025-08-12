@@ -1,37 +1,73 @@
 ﻿using Microsoft.AspNetCore.HttpOverrides;
 
-var builder = WebApplication.CreateBuilder(args);
+using Serilog;
+using Serilog.Events;
 
 // -----------------------------
-// Configuration & recommended services
+// Configure Logging (Serilog)
 // -----------------------------
-builder.Services.Configure<ForwardedHeadersOptions>(a =>
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.Debug()
+    .CreateBootstrapLogger();
+
+Log.Information("Starting up!");
+
+try
 {
-    a.KnownNetworks.Clear();
-    a.KnownProxies.Clear();
-    a.ForwardedHeaders = ForwardedHeaders.All;
-});
+    var builder = WebApplication.CreateBuilder(args);
+    builder.Services.AddSerilog((services, lc) => lc
+        .ReadFrom.Configuration(builder.Configuration)
+        .ReadFrom.Services(services)
+        .Enrich.FromLogContext()
+        .WriteTo.Console()
+        .WriteTo.Debug());
 
-builder.Services.AddProblemDetails();
+    // -----------------------------
+    // Configuration & recommended services
+    // -----------------------------
+    builder.Services.Configure<ForwardedHeadersOptions>(a =>
+    {
+        a.KnownNetworks.Clear();
+        a.KnownProxies.Clear();
+        a.ForwardedHeaders = ForwardedHeaders.All;
+    });
 
-// -----------------------------
-// Build
-// -----------------------------
-var app = builder.Build();
+    builder.Services.AddProblemDetails();
 
-// -----------------------------
-// Middleware pipeline (order matters)
-// -----------------------------
-app.UseForwardedHeaders();
-_ = app.Environment.IsDevelopment() ? app.UseDeveloperExceptionPage() : app.UseExceptionHandler();
-_ = app.Environment.IsDevelopment() ? app : app.UseHsts();
-_ = app.Environment.IsDevelopment() ? app : app.UseHttpsRedirection();
-app.UseRouting();
-app.UseEndpoints(_ => { });
+    // -----------------------------
+    // Build
+    // -----------------------------
+    var app = builder.Build();
 
-// -----------------------------
-// Endpoint mappings
-// -----------------------------
-app.MapGet("/", () => "Hello World!");
+    // -----------------------------
+    // Middleware pipeline (order matters)
+    // -----------------------------
+    app.UseForwardedHeaders();
+    _ = app.Environment.IsDevelopment() ? app.UseDeveloperExceptionPage() : app.UseExceptionHandler();
+    _ = app.Environment.IsDevelopment() ? app : app.UseHsts();
+    _ = app.Environment.IsDevelopment() ? app : app.UseHttpsRedirection();
 
-app.Run();
+    app.UseSerilogRequestLogging();
+
+    app.UseRouting();
+    app.UseEndpoints(_ => { });
+
+    // -----------------------------
+    // Endpoint mappings
+    // -----------------------------
+    app.MapGet("/", () => "Hello World!");
+
+    app.Run();
+    Log.Information("Stopped cleanly");
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Application terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
+}

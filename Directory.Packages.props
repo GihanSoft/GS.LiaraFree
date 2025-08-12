@@ -3,8 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
-  <PropertyGroup>
-  </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="Serilog.AspNetCore" Version="9.0.0" />
   </ItemGroup>
 </Project>
