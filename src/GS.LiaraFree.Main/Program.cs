@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.HttpOverrides;
+﻿using GS.LiaraFree.Main.Shared.Data;
+
+using Microsoft.AspNetCore.HttpOverrides;
 
 using Serilog;
 using Serilog.Events;
@@ -36,6 +38,8 @@ try
     });
 
     builder.Services.AddProblemDetails();
+
+    builder.Services.AddDefaultEf();
 
     // -----------------------------
     // Build
