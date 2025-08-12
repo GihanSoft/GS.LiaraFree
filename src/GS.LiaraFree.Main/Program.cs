@@ -21,6 +21,8 @@ var app = builder.Build();
 // Middleware pipeline (order matters)
 // -----------------------------
 app.UseForwardedHeaders();
+_ = app.Environment.IsDevelopment() ? app : app.UseHsts();
+_ = app.Environment.IsDevelopment() ? app : app.UseHttpsRedirection();
 app.UseRouting();
 app.UseEndpoints(_ => { });
 
