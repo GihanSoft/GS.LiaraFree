@@ -12,6 +12,8 @@ builder.Services.Configure<ForwardedHeadersOptions>(a =>
     a.ForwardedHeaders = ForwardedHeaders.All;
 });
 
+builder.Services.AddProblemDetails();
+
 // -----------------------------
 // Build
 // -----------------------------
@@ -21,6 +23,7 @@ var app = builder.Build();
 // Middleware pipeline (order matters)
 // -----------------------------
 app.UseForwardedHeaders();
+_ = app.Environment.IsDevelopment() ? app.UseDeveloperExceptionPage() : app.UseExceptionHandler();
 _ = app.Environment.IsDevelopment() ? app : app.UseHsts();
 _ = app.Environment.IsDevelopment() ? app : app.UseHttpsRedirection();
 app.UseRouting();
