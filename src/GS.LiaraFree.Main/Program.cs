@@ -1,4 +1,5 @@
-﻿using GS.LiaraFree.Main.Shared.Data;
+﻿using GS.LiaraFree.Main.Features.Security;
+using GS.LiaraFree.Main.Shared.Data;
 
 using Microsoft.AspNetCore.HttpOverrides;
 
@@ -28,7 +29,7 @@ try
         .WriteTo.Debug());
 
     // -----------------------------
-    // Configuration & recommended services
+    // Configuration
     // -----------------------------
     builder.Services.Configure<ForwardedHeadersOptions>(a =>
     {
@@ -37,9 +38,14 @@ try
         a.ForwardedHeaders = ForwardedHeaders.All;
     });
 
+    // -----------------------------
+    // Services
+    // -----------------------------
     builder.Services.AddProblemDetails();
 
     builder.Services.AddDefaultEf();
+
+    builder.Services.AddSecurity();
 
     // -----------------------------
     // Build
@@ -62,8 +68,12 @@ try
     // -----------------------------
     // Endpoint mappings
     // -----------------------------
+    app.MapSecurity();
     app.MapGet("/", () => "Hello World!");
 
+    // -----------------------------
+    // Running app
+    // -----------------------------
     app.Run();
     Log.Information("Stopped cleanly");
 }
