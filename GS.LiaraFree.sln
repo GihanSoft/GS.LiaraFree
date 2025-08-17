@@ -19,6 +19,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GS.LiaraFree.Main", "src\GS.LiaraFree.Main\GS.LiaraFree.Main.csproj", "{1A3A9F88-7911-EA18-C904-58F41C70A9DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GS.LiaraFree.AppHost", "aspire\GS.LiaraFree.AppHost\GS.LiaraFree.AppHost.csproj", "{8C843CD9-F054-421E-86C2-880E6B465552}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GS.LiaraFree.ServiceDefaults", "aspire\GS.LiaraFree.ServiceDefaults\GS.LiaraFree.ServiceDefaults.csproj", "{CEF61492-465C-6C9D-F997-95C8D0444BA3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "aspire", "aspire", "{64880D93-BAB4-FF83-898C-B934B68C31A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,12 +35,22 @@ Global
 		{1A3A9F88-7911-EA18-C904-58F41C70A9DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A3A9F88-7911-EA18-C904-58F41C70A9DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A3A9F88-7911-EA18-C904-58F41C70A9DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C843CD9-F054-421E-86C2-880E6B465552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C843CD9-F054-421E-86C2-880E6B465552}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C843CD9-F054-421E-86C2-880E6B465552}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C843CD9-F054-421E-86C2-880E6B465552}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEF61492-465C-6C9D-F997-95C8D0444BA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEF61492-465C-6C9D-F997-95C8D0444BA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEF61492-465C-6C9D-F997-95C8D0444BA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEF61492-465C-6C9D-F997-95C8D0444BA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1A3A9F88-7911-EA18-C904-58F41C70A9DD} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{8C843CD9-F054-421E-86C2-880E6B465552} = {64880D93-BAB4-FF83-898C-B934B68C31A9}
+		{CEF61492-465C-6C9D-F997-95C8D0444BA3} = {64880D93-BAB4-FF83-898C-B934B68C31A9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B71DDAB-BCE9-4EDF-8078-E318C00F195C}

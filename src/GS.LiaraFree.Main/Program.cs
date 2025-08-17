@@ -12,6 +12,7 @@ using Serilog.Events;
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
     .Enrich.FromLogContext()
+    .WriteTo.OpenTelemetry()
     .WriteTo.Console()
     .WriteTo.Debug()
     .CreateBootstrapLogger();
@@ -25,6 +26,7 @@ try
         .ReadFrom.Configuration(builder.Configuration)
         .ReadFrom.Services(services)
         .Enrich.FromLogContext()
+        .WriteTo.OpenTelemetry()
         .WriteTo.Console()
         .WriteTo.Debug());
 
@@ -41,6 +43,8 @@ try
     // -----------------------------
     // Services
     // -----------------------------
+    builder.AddServiceDefaults();
+
     builder.Services.AddProblemDetails();
 
     builder.Services.AddDefaultEf();
@@ -68,7 +72,10 @@ try
     // -----------------------------
     // Endpoint mappings
     // -----------------------------
+    app.MapDefaultEndpoints();
+
     app.MapSecurity();
+
     app.MapGet("/", () => "Hello World!");
 
     // -----------------------------
