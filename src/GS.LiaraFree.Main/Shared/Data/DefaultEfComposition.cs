@@ -5,10 +5,11 @@ namespace GS.LiaraFree.Main.Shared.Data;
 
 internal static class DefaultEfComposition
 {
-    public static IServiceCollection AddDefaultEf(this IServiceCollection services)
+    public static WebApplicationBuilder AddDefaultEf(this WebApplicationBuilder builder)
     {
-        services.AddDbContextPool<DefaultDbContext>(ConfigureOptionsBuilder);
-        return services;
+        builder.Services.AddDbContextPool<DefaultDbContext>(ConfigureOptionsBuilder);
+        builder.EnrichNpgsqlDbContext<DefaultDbContext>();
+        return builder;
     }
 
     private static void ConfigureOptionsBuilder(IServiceProvider sp, DbContextOptionsBuilder builder)

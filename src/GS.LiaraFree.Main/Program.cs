@@ -47,7 +47,7 @@ try
 
     builder.Services.AddProblemDetails();
 
-    builder.Services.AddDefaultEf();
+    builder.AddDefaultEf();
 
     builder.Services.AddSecurity();
 
