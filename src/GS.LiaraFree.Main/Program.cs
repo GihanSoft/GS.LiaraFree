@@ -78,7 +78,8 @@ try
     // -----------------------------
     app.MapDefaultEndpoints();
 
-    app.MapSecurity();
+    var apiGroup = app.MapGroup("api");
+    apiGroup.MapSecurity();
 
     app.MapGet("/", () => "Hello World!");
 
