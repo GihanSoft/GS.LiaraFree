@@ -8,7 +8,7 @@ var pgSql = builder.AddPostgres("pg-sql")
 
 var db = pgSql.AddDatabase("default");
 
-builder.AddProject<Projects.GS_LiaraFree_Main>("gs-liarafree-main")
+var main = builder.AddProject<Projects.GS_LiaraFree_Main>("main")
     .WithReference(db)//.WaitFor(db)
     ;
 
