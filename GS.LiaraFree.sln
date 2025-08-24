@@ -25,12 +25,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GS.LiaraFree.ServiceDefault
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "aspire", "aspire", "{64880D93-BAB4-FF83-898C-B934B68C31A9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{4C460E1A-3F46-4C5D-A55F-AADDEC6BBCAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4C460E1A-3F46-4C5D-A55F-AADDEC6BBCAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C460E1A-3F46-4C5D-A55F-AADDEC6BBCAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A3A9F88-7911-EA18-C904-58F41C70A9DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A3A9F88-7911-EA18-C904-58F41C70A9DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A3A9F88-7911-EA18-C904-58F41C70A9DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
