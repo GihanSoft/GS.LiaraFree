@@ -77,11 +77,12 @@ try
     // Endpoint mappings
     // -----------------------------
     app.MapDefaultEndpoints();
+    app.MapStaticAssets();
 
     var apiGroup = app.MapGroup("api");
     apiGroup.MapSecurity();
 
-    app.MapGet("/", () => "Hello World!");
+    app.MapFallbackToFile("index.html");
 
     // -----------------------------
     // Running app

@@ -17,10 +17,10 @@ class Build : NukeBuild
 
     [Solution(GenerateProjects = true)] readonly Solution Solution;
     Project MainProject => Solution.src.GS_LiaraFree_Main;
-    //Project FrontendProject => Solution.src.gs_liara_free;
+    Project FrontendProject => Solution.src.gs_liara_free;
 
     AbsolutePath WwwRootDir => MainProject.Directory / "wwwroot";
-    //AbsolutePath FrontendDist => FrontendProject.Directory / "dist";
+    AbsolutePath FrontendDist => FrontendProject.Directory / "dist";
 
     Target Clean => _ => _
         .Executes(() =>
@@ -36,8 +36,8 @@ class Build : NukeBuild
             DotNetTasks.DotNetRestore(s => s
                 .SetProjectFile(MainProject)
                 );
-            //ProcessTasks.StartProcess("bun", "install", FrontendProject.Directory)
-            //    .AssertZeroExitCode();
+            ProcessTasks.StartProcess("bun", "install", FrontendProject.Directory)
+                .AssertZeroExitCode();
         });
 
 
@@ -46,12 +46,12 @@ class Build : NukeBuild
         .Before(Compile)
         .Executes(() =>
         {
-            //ProcessTasks.StartProcess("bun", "run build", FrontendProject.Directory)
-            //    .AssertZeroExitCode();
+            ProcessTasks.StartProcess("bun", "run build", FrontendProject.Directory)
+                .AssertZeroExitCode();
 
-            //FrontendDist
-            //    .Copy(WwwRootDir, ExistsPolicy.MergeAndOverwrite)
-            //    ;
+            FrontendDist
+                .Copy(WwwRootDir, ExistsPolicy.MergeAndOverwrite)
+                ;
         });
 
 
@@ -72,7 +72,7 @@ class Build : NukeBuild
         .Triggers(Cleanup)
         .Executes(() =>
         {
-            ProcessTasks.StartProcess("liara", $"deploy --app={AppName}", Solution.Directory)
+            ProcessTasks.StartProcess("liara", $"deploy --app={AppName} --detach", Solution.Directory)
                 .AssertZeroExitCode();
         });
 

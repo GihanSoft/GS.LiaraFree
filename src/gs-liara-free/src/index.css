@@ -1,0 +1,48 @@
+@import "Vazirmatn/Vazirmatn-Variable-font-face.css";
+
+* {
+  box-sizing: border-box;
+  font-family: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --font-sans: Vazirmatn, ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+
+:root {
+  color-scheme: dark light;
+  font-family: var(--font-sans);
+}
+
+html {
+  height: 100%;
+}
+
+body,
+#root,
+#page-container div {
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  min-height: 100%;
+}
+
+#root,
+#page-container {
+  flex: auto;
+}
+
+#page-container {
+  max-width: 800px;
+  width: 95%;
+  align-self: center;
+  padding-block: 20px;
+}

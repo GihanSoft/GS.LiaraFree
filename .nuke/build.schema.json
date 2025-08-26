@@ -24,8 +24,11 @@
     "ExecutableTarget": {
       "type": "string",
       "enum": [
+        "BuildFrontend",
         "Clean",
+        "Cleanup",
         "Compile",
+        "Liara",
         "Publish",
         "Restore"
       ]

@@ -12,4 +12,10 @@ var main = builder.AddProject<Projects.GS_LiaraFree_Main>("main")
     .WithReference(db)//.WaitFor(db)
     ;
 
+builder.AddBunApp("frontend", "../../src/gs-liara-free", "dev")
+    .WithReference(main).WaitFor(main)
+    .WithHttpsEndpoint(env: "PORT")
+    .WithBunPackageInstallation()
+    ;
+
 builder.Build().Run();
