@@ -11,8 +11,15 @@ internal static class SecurityComposition
         services.AddAuthentication();
         services.AddAuthorization();
 
-        services.AddIdentityApiEndpoints<IdentityUser>()
-            .AddEntityFrameworkStores<DefaultDbContext>();
+        services.AddIdentityApiEndpoints<IdentityUser>(
+            opt =>
+            {
+                opt.SignIn.RequireConfirmedEmail = true;
+            })
+            .AddEntityFrameworkStores<DefaultDbContext>()
+            .Services
+            .AddSingleton<IEmailSender<IdentityUser>, SecurityEmailSender>()
+            ;
         return services;
     }
 

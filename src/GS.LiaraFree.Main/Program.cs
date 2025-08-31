@@ -1,5 +1,6 @@
 ﻿using GS.LiaraFree.Main.Features.Security;
 using GS.LiaraFree.Main.Shared.Data;
+using GS.LiaraFree.Main.Shared.Email;
 
 using Microsoft.AspNetCore.HttpOverrides;
 
@@ -48,6 +49,7 @@ try
     builder.Services.AddProblemDetails();
 
     builder.AddDefaultEf();
+    builder.AddEmail();
 
     builder.Services.AddSecurity();
 

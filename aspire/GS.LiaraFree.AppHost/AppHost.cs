@@ -8,8 +8,13 @@ var pgSql = builder.AddPostgres("pg-sql")
 
 var db = pgSql.AddDatabase("default");
 
+var mailPit = builder.AddMailPit("email")
+    ;
+
 var main = builder.AddProject<Projects.GS_LiaraFree_Main>("main")
     .WithReference(db)//.WaitFor(db)
+    .WithReference(mailPit)//.WaitFor(mailpit)
+        .WithEnvironment("Email__DefaultFromEmail", "info@localhost")
     ;
 
 builder.AddBunApp("frontend", "../../src/gs-liara-free", "dev")
