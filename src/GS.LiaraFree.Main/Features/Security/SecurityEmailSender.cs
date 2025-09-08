@@ -38,7 +38,7 @@ internal class SecurityEmailSender(IHttpContextAccessor _httpContextAccessor, IS
         await UseFluentEmail(async fluentEmail => await fluentEmail
             .To(email)
             .Subject("Confirm Your Email Address for GihanSoft")
-            //.Header("x-liara-tag", "email-confirmation")
+            .Header("x-liara-tag", "email-confirmation")
             .UsingTemplate(ConfirmationTemplate, new
             {
                 user,
@@ -53,7 +53,7 @@ internal class SecurityEmailSender(IHttpContextAccessor _httpContextAccessor, IS
         await UseFluentEmail(async fluentEmail => await fluentEmail
             .To(email)
             .Subject("Your Password Reset Code for GihanSoft")
-            //.Header("x-liara-tag", "password-reset")
+            .Header("x-liara-tag", "password-reset")
             .UsingTemplate(PasswordResetCodeTemplate, new
             {
                 user,
@@ -68,7 +68,7 @@ internal class SecurityEmailSender(IHttpContextAccessor _httpContextAccessor, IS
         await UseFluentEmail(async fluentEmail => await fluentEmail
             .To(email)
             .Subject("Password Reset Request for Your GihanSoft Account")
-            //.Header("x-liara-tag", "password-reset")
+            .Header("x-liara-tag", "password-reset")
             .UsingTemplate(PasswordResetLinkTemplate, new
             {
                 user,

@@ -19,12 +19,20 @@ internal static class EmailComposition
         var validationContext = new ValidationContext(emailOptions);
         Validator.ValidateObject(emailOptions, validationContext, validateAllProperties: true);
 
-        FluentEmailServicesBuilder emailBuilder = builder.Services.AddFluentEmail(emailOptions.DefaultFromEmail);
+        SmtpClientOptions options = new()
+        {
+            Server = host,
+            Port = port,
+            User = credentials?.Username ?? "",
+            Password = credentials?.Password ?? "",
+            SocketOptions = credentials is null ? MailKit.Security.SecureSocketOptions.Auto : MailKit.Security.SecureSocketOptions.SslOnConnect,
+            RequiresAuthentication = credentials is not null,
+        };
 
-        emailBuilder = credentials is not null
-            ? emailBuilder.AddSmtpSender(host, port, credentials.Username, credentials.Password)
-            : emailBuilder.AddSmtpSender(host, port);
-        _ = emailBuilder.AddLiquidRenderer();
+        _ = builder.Services
+            .AddFluentEmail(emailOptions.DefaultFromEmail)
+            .AddMailKitSender(options)
+            .AddLiquidRenderer();
 
         return builder;
     }
