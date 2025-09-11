@@ -18,6 +18,7 @@ internal static class SecurityComposition
             })
             .AddEntityFrameworkStores<DefaultDbContext>()
             .Services
+            .AddScoped<UserManager<IdentityUser>, AspNetUserManager<IdentityUser>>()
             .AddSingleton<IEmailSender<IdentityUser>, SecurityEmailSender>()
             ;
         return services;
