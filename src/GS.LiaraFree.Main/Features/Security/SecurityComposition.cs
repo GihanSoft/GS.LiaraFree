@@ -28,6 +28,7 @@ internal static class SecurityComposition
     {
         var securityGroup = app.MapGroup("security");
         securityGroup.MapIdentityApi<IdentityUser>();
+        securityGroup.MapPost("/logout", (SignInManager<IdentityUser> signInManager) => signInManager.SignOutAsync());
         return app;
     }
 }
