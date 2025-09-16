@@ -40,6 +40,7 @@
 
   body {
     min-height: 100%;
+    background-color: var(--color-slate-950);
   }
 
   #root,
@@ -52,5 +53,100 @@
     width: 95%;
     align-self: center;
     padding-block: 20px;
+  }
+
+  .sidebar-toggle-btn {
+    position: fixed;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 4px;
+    cursor: pointer;
+    font-size: var(--text-lg);
+    z-index: 999;
+  }
+
+  .sidebar {
+    position: fixed;
+    height: 100%;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-slate-900);
+    padding: 4px;
+    padding-top: 40px;
+    outline: solid thin var(--color-slate-600);
+    transform: translateX(-100%);
+    transition: all 400ms var(--ease-in-out);
+    left: 0;
+  }
+
+  .sidebar.open-sidebar {
+    transform: translateX(0);
+  }
+
+  .sidebar-backdrop {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: #0002;
+    backdrop-filter: blur(4px);
+  }
+
+  .sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .sidebar-menu li {
+    list-style: none;
+    display: flex;
+  }
+
+  .sidebar-menu a {
+    text-decoration: none;
+    color: inherit;
+    padding: 8px;
+    flex: auto;
+  }
+
+  .sidebar-menu a:hover {
+    background-color: var(--color-slate-800);
+  }
+
+  .vertical-form {
+    display: flex;
+    flex-direction: column;
+    /* align-items: flex-end; */
+    gap: 8px;
+  }
+
+  .vertical-form label {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .vertical-form button[type="submit"] {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-md);
+  }
+
+  .form-card-container {
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .form-card {
+    background: var(--color-slate-800);
+    outline: solid thin var(--color-slate-600);
+    padding: 32px;
   }
 }
