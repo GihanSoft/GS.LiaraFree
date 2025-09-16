@@ -1,0 +1,18 @@
+meta {
+  name: register
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/api/security/register
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email": "test01@gs-dev.ir",
+    "password": "qwe123QWE!@#"
+  }
+}

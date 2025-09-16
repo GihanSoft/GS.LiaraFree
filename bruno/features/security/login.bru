@@ -1,0 +1,22 @@
+meta {
+  name: login
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/api/security/login?useCookies=true
+  body: json
+  auth: inherit
+}
+
+params:query {
+  useCookies: true
+}
+
+body:json {
+  {
+    "email": "test01@gs-dev.ir",
+    "password": "qwe123QWE!@#"
+  }
+}
