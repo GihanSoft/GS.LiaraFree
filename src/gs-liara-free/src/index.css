@@ -104,14 +104,17 @@
     display: flex;
   }
 
-  .sidebar-menu a {
+  .sidebar-menu :is(a, button) {
     text-decoration: none;
     color: inherit;
     padding: 8px;
     flex: auto;
+    border: none;
+    outline: none;
+    background: transparent;
   }
 
-  .sidebar-menu a:hover {
+  .sidebar-menu :is(a, button):hover {
     background-color: var(--color-slate-800);
   }
 
@@ -148,5 +151,9 @@
     background: var(--color-slate-800);
     outline: solid thin var(--color-slate-600);
     padding: 32px;
+  }
+
+  .form-error {
+    color: var(--color-red-500);
   }
 }

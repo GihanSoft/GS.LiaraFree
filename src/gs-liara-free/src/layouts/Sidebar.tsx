@@ -2,9 +2,13 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { NavLink } from "react-router";
+import { useAuth } from "../features/auth/AuthProvider";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { user, logout } = useAuth();
+
   return (
     <>
       {isOpen && (
@@ -24,12 +28,21 @@ export default function Sidebar() {
           <li>
             <NavLink to="/">Home</NavLink>
           </li>
-          <li>
-            <NavLink to="/security/register">Register</NavLink>
-          </li>
-          <li>
-            <NavLink to="/security/login">Login</NavLink>
-          </li>
+          {!user && (
+            <li>
+              <NavLink to="/auth/register">Register</NavLink>
+            </li>
+          )}
+          {!user && (
+            <li>
+              <NavLink to="/auth/login">Login</NavLink>
+            </li>
+          )}
+          {user && (
+            <li>
+              <button onClick={() => logout()}>Logout</button>
+            </li>
+          )}
         </ul>
       </div>
     </>
