@@ -11,9 +11,9 @@ internal partial class DefaultDbContext(DbContextOptions<DefaultDbContext> optio
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(typeof(Program).Assembly);
 
-        builder.Entity<IdentityUser>().ToTable("asp_net_users", "security");
-        builder.Entity<IdentityUserClaim<string>>().ToTable("asp_net_user_claims", "security");
-        builder.Entity<IdentityUserLogin<string>>().ToTable("asp_net_user_logins", "security");
-        builder.Entity<IdentityUserToken<string>>().ToTable("asp_net_user_tokens", "security");
+        builder.Entity<IdentityUser>().ToTable("asp_net_users", "auth");
+        builder.Entity<IdentityUserClaim<string>>().ToTable("asp_net_user_claims", "auth");
+        builder.Entity<IdentityUserLogin<string>>().ToTable("asp_net_user_logins", "auth");
+        builder.Entity<IdentityUserToken<string>>().ToTable("asp_net_user_tokens", "auth");
     }
 }

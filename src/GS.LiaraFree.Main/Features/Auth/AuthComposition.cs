@@ -2,11 +2,11 @@
 
 using Microsoft.AspNetCore.Identity;
 
-namespace GS.LiaraFree.Main.Features.Security;
+namespace GS.LiaraFree.Main.Features.Auth;
 
-internal static class SecurityComposition
+internal static class AuthComposition
 {
-    public static IServiceCollection AddSecurity(this IServiceCollection services)
+    public static IServiceCollection AddAuth(this IServiceCollection services)
     {
         services.AddAuthentication();
         services.AddAuthorization();
@@ -19,16 +19,16 @@ internal static class SecurityComposition
             .AddEntityFrameworkStores<DefaultDbContext>()
             .Services
             .AddScoped<UserManager<IdentityUser>, AspNetUserManager<IdentityUser>>()
-            .AddSingleton<IEmailSender<IdentityUser>, SecurityEmailSender>()
+            .AddSingleton<IEmailSender<IdentityUser>, AuthEmailSender>()
             ;
         return services;
     }
 
-    public static IEndpointRouteBuilder MapSecurity(this IEndpointRouteBuilder app)
+    public static IEndpointRouteBuilder MapAuth(this IEndpointRouteBuilder app)
     {
-        var securityGroup = app.MapGroup("security");
-        securityGroup.MapIdentityApi<IdentityUser>();
-        securityGroup.MapPost("/logout", (SignInManager<IdentityUser> signInManager) => signInManager.SignOutAsync());
+        var authGroup = app.MapGroup("auth");
+        authGroup.MapIdentityApi<IdentityUser>();
+        authGroup.MapPost("/logout", (SignInManager<IdentityUser> signInManager) => signInManager.SignOutAsync());
         return app;
     }
 }

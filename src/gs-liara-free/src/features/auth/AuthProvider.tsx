@@ -42,7 +42,7 @@ export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
-    fetch("/api/security/manage/info")
+    fetch("/api/auth/manage/info")
       .then((resp) => {
         if (resp.ok) {
           return resp.json().then((a) => a as User);
@@ -59,7 +59,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User>();
 
   const login = async (input: LoginInput) => {
-    const response = await fetch("/api/security/login?useCookies=true", {
+    const response = await fetch("/api/auth/login?useCookies=true", {
       method: "POST",
       headers: {
         "CONTENT-TYPE": "application/json",
@@ -75,7 +75,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = async () => {
-    const response = await fetch("/api/security/logout", { method: "POST" });
+    const response = await fetch("/api/auth/logout", { method: "POST" });
 
     if (response.ok) {
       setUser(undefined);

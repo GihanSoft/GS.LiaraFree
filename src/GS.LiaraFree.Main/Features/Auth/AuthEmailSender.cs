@@ -2,9 +2,9 @@
 
 using Microsoft.AspNetCore.Identity;
 
-namespace GS.LiaraFree.Main.Features.Security;
+namespace GS.LiaraFree.Main.Features.Auth;
 
-internal class SecurityEmailSender(IHttpContextAccessor _httpContextAccessor, IServiceProvider _serviceProvider) : IEmailSender<IdentityUser>
+internal class AuthEmailSender(IHttpContextAccessor _httpContextAccessor, IServiceProvider _serviceProvider) : IEmailSender<IdentityUser>
 {
     private readonly IHttpContextAccessor _httpContextAccessor = _httpContextAccessor;
     private readonly IServiceProvider _serviceProvider = _serviceProvider;

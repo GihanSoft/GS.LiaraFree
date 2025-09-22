@@ -1,4 +1,4 @@
-﻿using GS.LiaraFree.Main.Features.Security;
+﻿using GS.LiaraFree.Main.Features.Auth;
 using GS.LiaraFree.Main.Shared.Data;
 using GS.LiaraFree.Main.Shared.Email;
 
@@ -51,7 +51,7 @@ try
     builder.AddDefaultEf();
     builder.AddEmail();
 
-    builder.Services.AddSecurity();
+    builder.Services.AddAuth();
 
     // -----------------------------
     // Build
@@ -82,7 +82,7 @@ try
     app.MapStaticAssets();
 
     var apiGroup = app.MapGroup("api");
-    apiGroup.MapSecurity();
+    apiGroup.MapAuth();
 
     app.MapFallbackToFile("index.html");
 
