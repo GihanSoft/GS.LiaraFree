@@ -159,4 +159,53 @@
   .form-error {
     color: var(--color-red-500);
   }
+
+  /*
+ * The main overlay container.
+ * It's positioned fixed to cover the entire viewport.
+ */
+  .full-page-spinner-overlay {
+    position: fixed;
+    /* Stretch to all corners of the viewport */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    /* Use flexbox to perfectly center the child icon */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* A semi-transparent background to dim the content underneath */
+    background-color: rgba(255, 255, 255, 0.8);
+
+    /* Ensure it's on top of all other content */
+    z-index: 9999;
+  }
+
+  /* 
+ * Style the Font Awesome icon itself.
+ * We target the 'svg' element rendered by the component.
+ */
+  .full-page-spinner-overlay svg {
+    color: #007bff; /* A nice, noticeable blue. Change to your theme color. */
+  }
+
+  /*
+ * Accessibility helper class.
+ * This will hide the "Loading..." text visually but keep it
+ * available for screen readers.
+ */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
 }

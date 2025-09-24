@@ -19,6 +19,7 @@ interface User {
 
 interface AuthContextType {
   user?: User;
+  isPending: boolean;
   revalidate: () => Promise<void>;
   logout: () => Promise<Response>;
 }
@@ -36,6 +37,7 @@ export const useAuth = () => {
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User>();
+  const [isPending, setIsPending] = useState(true);
 
   const revalidate = useCallback(async () => {
     try {
@@ -56,6 +58,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       console.error("Network error fetching user info:", error);
       setUser(undefined);
+    } finally {
+      setIsPending(false);
     }
   }, []);
 
@@ -89,6 +93,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     <AuthContext.Provider
       value={{
         user,
+        isPending,
         revalidate,
         logout,
       }}

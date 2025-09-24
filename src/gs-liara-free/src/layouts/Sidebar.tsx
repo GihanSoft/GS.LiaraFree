@@ -1,13 +1,17 @@
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import { NavLink } from "react-router";
+import { useEffect, useState } from "react";
+import { NavLink, useLocation } from "react-router";
 import { useAuth } from "../features/auth/AuthProvider";
 
 export default function Sidebar() {
+  const { user, logout } = useAuth();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
-  const { user, logout } = useAuth();
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
 
   return (
     <>
@@ -17,11 +21,11 @@ export default function Sidebar() {
           onClick={() => setIsOpen(false)}
         ></div>
       )}
-      <button className="sidebar-toggle-btn">
-        <FontAwesomeIcon
-          icon={faBars}
-          onClick={() => setIsOpen((pre) => !pre)}
-        />
+      <button
+        className="sidebar-toggle-btn"
+        onClick={() => setIsOpen((pre) => !pre)}
+      >
+        <FontAwesomeIcon icon={faBars} />
       </button>
       <div className={`sidebar${isOpen ? " open-sidebar" : ""}`}>
         <ul className="sidebar-menu">
