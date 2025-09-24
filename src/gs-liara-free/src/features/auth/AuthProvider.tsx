@@ -1,97 +1,85 @@
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useState,
   type ReactNode,
 } from "react";
+import api, { UNAUTHORIZED_EVENT } from "../../shared/api";
+
+const API_ENDPOINTS = {
+  LOGOUT: "/api/auth/logout",
+  MANAGE_INFO: "/api/auth/manage/info",
+};
 
 interface User {
   email: string;
 }
 
-interface LoginInput {
-  email: string;
-  password: string;
-}
-
 interface AuthContextType {
   user?: User;
-  login: (input: LoginInput) => Promise<Response>;
+  revalidate: () => Promise<void>;
   logout: () => Promise<Response>;
-  authFetch: (
-    url: string | URL | globalThis.Request,
-    init?: RequestInit
-  ) => Promise<Response>;
 }
 
-const AuthContext = createContext<AuthContextType>({
-  user: undefined,
-  login: async () => {
-    throw "not implemented";
-  },
-  logout: async () => {
-    throw "not implemented";
-  },
-  authFetch: async () => {
-    throw "not implemented";
-  },
-});
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const useAuth = () => useContext(AuthContext);
+// eslint-disable-next-line react-refresh/only-export-components
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
-  useEffect(() => {
-    fetch("/api/auth/manage/info")
-      .then((resp) => {
-        if (resp.ok) {
-          return resp.json().then((a) => a as User);
-        } else if (resp.status === 401) {
-          return undefined;
-        } else {
-          throw resp;
-        }
-      })
-      .then((user) => setUser(user))
-      .catch((err) => console.log(err));
-  }, []);
-
   const [user, setUser] = useState<User>();
 
-  const login = async (input: LoginInput) => {
-    const response = await fetch("/api/auth/login?useCookies=true", {
-      method: "POST",
-      headers: {
-        "CONTENT-TYPE": "application/json",
-      },
-      body: JSON.stringify(input),
-    });
+  const revalidate = useCallback(async () => {
+    try {
+      const response = await fetch(API_ENDPOINTS.MANAGE_INFO);
+      if (response.status === 401) {
+        setUser(undefined);
+        return;
+      }
 
-    if (response.ok) {
-      setUser({ email: input.email });
+      if (!response.ok) {
+        console.error("Failed to fetch user info:", response);
+        setUser(undefined);
+        return;
+      }
+
+      const user = (await response.json()) as User;
+      setUser(user);
+    } catch (error) {
+      console.error("Network error fetching user info:", error);
+      setUser(undefined);
     }
+  }, []);
 
-    return response;
-  };
+  useEffect(() => {
+    revalidate();
+  }, [revalidate]);
+
+  useEffect(() => {
+    const handleUnauthorized = () => {
+      console.log("Global unauthorized event caught. Revalidating auth state.");
+      revalidate();
+    };
+
+    window.addEventListener(UNAUTHORIZED_EVENT, handleUnauthorized);
+
+    return () => {
+      window.removeEventListener(UNAUTHORIZED_EVENT, handleUnauthorized);
+    };
+  }, [revalidate]);
 
   const logout = async () => {
-    const response = await fetch("/api/auth/logout", { method: "POST" });
-
-    if (response.ok) {
-      setUser(undefined);
-    }
-
-    return response;
-  };
-
-  const authFetch = async (
-    url: string | URL | globalThis.Request,
-    init?: RequestInit
-  ) => {
-    const response = await fetch(url, init);
-
-    if (response.status === 401) {
-      setUser(undefined);
+    const response = await api(API_ENDPOINTS.LOGOUT, { method: "POST" });
+    if (response.status !== 401) {
+      await revalidate();
     }
 
     return response;
@@ -101,9 +89,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     <AuthContext.Provider
       value={{
         user,
-        login,
+        revalidate,
         logout,
-        authFetch,
       }}
     >
       {children}

@@ -1,85 +1,86 @@
 import { useNavigate, useSearchParams } from "react-router";
-import { useFormStatus } from "react-dom";
-import { useState } from "react";
+import { useActionState, useEffect, useId } from "react";
+import { FORM_FIELDS, handleAction, initialState } from "./Login.actions";
 import { useAuth } from "../AuthProvider";
-
-const FormChild = () => {
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
-
-  const { pending } = useFormStatus();
-  return (
-    <>
-      <label>
-        <span>Email</span>
-        <input
-          type="email"
-          name="email"
-          disabled={pending}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </label>
-      <label>
-        <span>Password</span>
-        <input
-          type="password"
-          name="password"
-          disabled={pending}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </label>
-
-      <button type="submit" disabled={pending}>
-        {pending ? "Logging in..." : "Log In"}
-      </button>
-    </>
-  );
-};
 
 const Login = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { revalidate } = useAuth();
+  const formErrorId = useId();
 
-  const { login } = useAuth();
+  const [state, formAction, isPending] = useActionState(
+    handleAction,
+    initialState
+  );
 
-  const [error, setError] = useState<string>();
+  useEffect(() => {
+    const handleSuccess = async () => {
+      if (state.succeed) {
+        await revalidate();
 
-  const handleFormAction = async (data: FormData) => {
-    const email = data.get("email")?.toString();
-    const password = data.get("password")?.toString();
-
-    if (!email || !password) {
-      return;
-    }
-
-    const response = await login({ email, password });
-    if (response.ok) {
-      const returnUrl = searchParams.get("returnUrl") ?? "/";
-      navigate(returnUrl, { replace: true });
-      return;
-    }
-
-    if (response.status === 401) {
-      if (response.headers.get("CONTENT-TYPE") === "application/problem+json") {
-        const body = await response.json();
-        if (body.detail != "Failed") {
-          setError(body.detail as string);
-          return;
-        }
+        const returnUrl = searchParams.get("returnUrl") ?? "/";
+        navigate(returnUrl, { replace: true });
       }
+    };
 
-      setError("username or password mismatch");
-    }
-  };
+    handleSuccess();
+  }, [state.succeed, navigate, searchParams, revalidate]);
+
+  const showRegistrationSuccess =
+    searchParams.get("status") === "registration-success";
 
   return (
     <div className="page form-card-container">
       <div className="form-card">
-        <form className="vertical-form" action={handleFormAction}>
-          {error && <div className="form-error">{error}</div>}
-          <FormChild />
+        <form className="vertical-form" action={formAction}>
+          <h2>Log In</h2>
+
+          {/* --- Success message from registration --- */}
+          {showRegistrationSuccess && (
+            <div className="form-success">
+              Registration successful! Please log in.
+            </div>
+          )}
+
+          {/* --- Consistent and Accessible Error Display --- */}
+          {state.errors.formErrors.length > 0 && (
+            <div id={formErrorId} role="alert" className="form-error">
+              <ul>
+                {state.errors.formErrors.map((error, index) => (
+                  <li key={index}>{error}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <label>
+            <span>Email</span>
+            <input
+              type="email"
+              name={FORM_FIELDS.EMAIL}
+              autoComplete="email"
+              required
+              defaultValue={state.email}
+              disabled={isPending}
+              aria-describedby={formErrorId}
+            />
+          </label>
+          <label>
+            <span>Password</span>
+            <input
+              type="password"
+              name={FORM_FIELDS.PASSWORD}
+              autoComplete="current-password"
+              required
+              disabled={isPending}
+              aria-describedby={formErrorId}
+            />
+          </label>
+
+          <button type="submit" disabled={isPending}>
+            {isPending ? "Logging in..." : "Log In"}
+          </button>
         </form>
       </div>
     </div>
