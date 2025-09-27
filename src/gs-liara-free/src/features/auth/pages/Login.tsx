@@ -2,6 +2,7 @@ import { useNavigate, useSearchParams } from "react-router";
 import { useActionState, useEffect, useId } from "react";
 import { FORM_FIELDS, handleAction, initialState } from "./Login.actions";
 import { useAuth } from "../AuthProvider";
+import InputPassword from "../../../shared/components/InputPassword";
 
 const Login = () => {
   const navigate = useNavigate();

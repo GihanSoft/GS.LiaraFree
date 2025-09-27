@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router";
 import Login from "./features/auth/pages/Login";
 import Register from "./features/auth/pages/Register";
-import MainLayout from "./layouts/MainLayout";
-import Home from "./pages/Home";
+import MainLayout from "./shared/layouts/MainLayout";
+import Home from "./shared/pages/Home";
 
 function App() {
   return (

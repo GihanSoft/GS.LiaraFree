@@ -2,7 +2,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router";
-import { useAuth } from "../features/auth/AuthProvider";
+import { useAuth } from "../../features/auth/AuthProvider";
 
 export default function Sidebar() {
   const { user, logout } = useAuth();
