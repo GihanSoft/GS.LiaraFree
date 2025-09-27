@@ -40,7 +40,7 @@
 
   body {
     min-height: 100%;
-    background-color: var(--color-slate-950);
+    background-color: light-dark(var(--color-slate-50), var(--color-slate-950));
   }
 
   #root,
@@ -55,6 +55,22 @@
     padding-block: 20px;
   }
 
+  button {
+    border-width: thin;
+    border-radius: var(--radius-sm);
+  }
+
+  button:enabled {
+    cursor: pointer;
+  }
+
+  input {
+    border: solid thin light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    background: light-dark(var(var(--color-neutral-300), --color-neutral-700));
+    padding-inline: 0.5em;
+    border-radius: var(--radius-sm);
+  }
+
   .sidebar-toggle-btn {
     position: fixed;
     background: none;
@@ -64,6 +80,14 @@
     cursor: pointer;
     font-size: var(--text-lg);
     z-index: 999;
+    display: flex;
+    align-items: center;
+    border-radius: 0;
+    height: 1.6em;
+  }
+
+  .sidebar-toggle-btn:hover {
+    background: light-dark(#0002, #FFF2);
   }
 
   .sidebar {
@@ -72,7 +96,7 @@
     width: 250px;
     display: flex;
     flex-direction: column;
-    background: var(--color-slate-900);
+    background: light-dark(var(--color-slate-100), var(--color-slate-900));
     padding: 4px;
     padding-top: 40px;
     outline: solid thin var(--color-slate-600);
@@ -118,7 +142,10 @@
   }
 
   .sidebar-menu :is(a, button):hover {
-    background-color: var(--color-slate-800);
+    background-color: light-dark(
+      var(--color-slate-200),
+      var(--color-slate-800)
+    );
   }
 
   .vertical-form {
@@ -130,15 +157,17 @@
 
   .vertical-form label {
     display: flex;
-    justify-content: flex-end;
-    gap: 8px;
+    flex-direction: column;
   }
 
+  .vertical-form label span {
+    font-size: var(--text-sm);
+  }
   .vertical-form button[type="submit"] {
     cursor: pointer;
-    outline: none;
-    border: none;
-    border-radius: var(--radius-sm);
+    /* outline: none; */
+    /* border: none; */
+    /* border-radius: var(--radius-sm); */
     font-size: var(--text-md);
   }
 
@@ -151,9 +180,10 @@
   }
 
   .form-card {
-    background: var(--color-slate-800);
+    background: light-dark(var(--color-slate-200), var(--color-slate-800));
     outline: solid thin var(--color-slate-600);
     padding: 32px;
+    border-radius: var(--radius-sm);
   }
 
   .form-error {
@@ -207,5 +237,37 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .input-group > * {
+    border-radius: 0;
+  }
+
+  .input-group > input {
+    border: thin;
+    border: solid thin light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    background: light-dark(var(var(--color-neutral-300), --color-neutral-700));
+  }
+
+  .input-group button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 2px;
+  }
+
+  .input-group :first-child {
+    border-start-start-radius: var(--radius-sm);
+    border-end-start-radius: var(--radius-sm);
+  }
+
+  .input-group :last-child {
+    border-start-end-radius: var(--radius-sm);
+    border-end-end-radius: var(--radius-sm);
   }
 }

@@ -1,6 +1,7 @@
 import { useNavigate, useSearchParams, type To } from "react-router";
 import { useActionState, useEffect, useId } from "react";
 import { FORM_FIELDS, handleAction, initialState } from "./Register.actions";
+import InputPassword from "../../../shared/components/InputPassword";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -59,8 +60,7 @@ const Register = () => {
           </label>
           <label>
             <span>Password</span>
-            <input
-              type="password"
+            <InputPassword
               name={FORM_FIELDS.PASSWORD}
               autoComplete="new-password"
               required

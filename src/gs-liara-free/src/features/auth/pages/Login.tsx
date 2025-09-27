@@ -69,8 +69,7 @@ const Login = () => {
           </label>
           <label>
             <span>Password</span>
-            <input
-              type="password"
+            <InputPassword
               name={FORM_FIELDS.PASSWORD}
               autoComplete="current-password"
               required
