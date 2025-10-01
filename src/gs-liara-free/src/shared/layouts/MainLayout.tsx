@@ -1,17 +1,17 @@
+import Container from "@mui/material/Container";
 import { Outlet } from "react-router";
 import Footer from "./Footer";
 import Header from "./Header";
-import Sidebar from "./Sidebar";
 
 const MainLayout = () => {
   return (
     <>
       <Header />
-      <Sidebar />
+      {/* <Sidebar /> */}
 
-      <div id="page-container">
+      <Container sx={{ display: "flex", flexDirection: "column", flex: "auto" }}>
         <Outlet />
-      </div>
+      </Container>
 
       <Footer />
     </>

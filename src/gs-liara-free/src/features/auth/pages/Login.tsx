@@ -1,8 +1,18 @@
-import { useNavigate, useSearchParams } from "react-router";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import Divider from "@mui/material/Divider";
+import Link from "@mui/material/Link";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import { useActionState, useEffect, useId } from "react";
-import { FORM_FIELDS, handleAction, initialState } from "./Login.actions";
+import { NavLink, useNavigate, useSearchParams } from "react-router";
+import PasswordField from "../../../shared/components/PasswordField";
 import { useAuth } from "../AuthProvider";
-import InputPassword from "../../../shared/components/InputPassword";
+import { FORM_FIELDS, handleAction, initialState } from "./Login.actions";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -32,58 +42,109 @@ const Login = () => {
     searchParams.get("status") === "registration-success";
 
   return (
-    <div className="page form-card-container">
-      <div className="form-card">
-        <form className="vertical-form" action={formAction}>
-          <h2>Log In</h2>
+    <Stack
+      sx={(theme) => ({
+        flex: "auto",
+        padding: theme.spacing(2),
+        justifyContent: "center",
+        alignItems: "center",
+      })}
+    >
+      <Card
+        variant="outlined"
+        sx={(theme) => ({
+          display: "flex",
+          flexDirection: "column",
+          gap: theme.spacing(3),
+          padding: theme.spacing(4),
+          width: "100%",
+          [theme.breakpoints.up("sm")]: {
+            maxWidth: "450px",
+          },
+          boxShadow:
+            "hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px",
+        })}
+      >
+        <Typography
+          component="h1"
+          variant="h4"
+          sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
+        >
+          Login
+        </Typography>
 
-          {/* --- Success message from registration --- */}
-          {showRegistrationSuccess && (
-            <div className="form-success">
-              Registration successful! Please log in.
-            </div>
-          )}
+        {showRegistrationSuccess && (
+          <Typography>Registration successful! Please log in.</Typography>
+        )}
 
-          {/* --- Consistent and Accessible Error Display --- */}
-          {state.errors.formErrors.length > 0 && (
-            <div id={formErrorId} role="alert" className="form-error">
-              <ul>
-                {state.errors.formErrors.map((error, index) => (
-                  <li key={index}>{error}</li>
-                ))}
-              </ul>
-            </div>
-          )}
+        {state.errors.formErrors.length > 0 && (
+          <List id={formErrorId} role="alert" dense>
+            {state.errors.formErrors.map((error, index) => (
+              <ListItem key={index}>
+                <ListItemText
+                  primary={error}
+                  sx={(theme) => ({ color: theme.palette.error.main })}
+                />
+              </ListItem>
+            ))}
+          </List>
+        )}
 
-          <label>
-            <span>Email</span>
-            <input
-              type="email"
-              name={FORM_FIELDS.EMAIL}
-              autoComplete="email"
-              required
-              defaultValue={state.email}
-              disabled={isPending}
-              aria-describedby={formErrorId}
-            />
-          </label>
-          <label>
-            <span>Password</span>
-            <InputPassword
-              name={FORM_FIELDS.PASSWORD}
-              autoComplete="current-password"
-              required
-              disabled={isPending}
-              aria-describedby={formErrorId}
-            />
-          </label>
+        <Stack
+          component="form"
+          action={formAction}
+          sx={(theme) => ({
+            gap: theme.spacing(2),
+          })}
+        >
+          <TextField
+            type="email"
+            name={FORM_FIELDS.EMAIL}
+            autoComplete="email"
+            required
+            defaultValue={state.email}
+            label="email"
+            size="small"
+            disabled={isPending}
+            error={state.errors.formErrors.length > 0}
+            aria-describedby={formErrorId}
+          />
+          <PasswordField
+            name={FORM_FIELDS.PASSWORD}
+            label="password"
+            size="small"
+            autoComplete="current-password"
+            required
+            disabled={isPending}
+            error={state.errors.formErrors.length > 0}
+            aria-describedby={formErrorId}
+          />
 
-          <button type="submit" disabled={isPending}>
-            {isPending ? "Logging in..." : "Log In"}
-          </button>
-        </form>
-      </div>
-    </div>
+          <Button
+            type="submit"
+            variant="contained"
+            loading={isPending}
+            loadingIndicator="Logging in..."
+          >
+            Login
+          </Button>
+        </Stack>
+        
+        <Divider>or</Divider>
+
+        <Typography sx={{ textAlign: "center" }}>
+          Don&apos;t have an account?{" "}
+          <Link
+            component={NavLink}
+            to="/auth/register"
+            variant="body2"
+            sx={{ alignSelf: "center" }}
+          >
+            Register
+          </Link>
+        </Typography>
+      </Card>
+    </Stack>
   );
 };
 
