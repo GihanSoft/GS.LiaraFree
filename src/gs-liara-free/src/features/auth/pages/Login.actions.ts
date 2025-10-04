@@ -1,7 +1,7 @@
 import type { ProblemDetails } from "../../../shared/problem-details";
 
 const API_ENDPOINTS = {
-  LOGIN: "/api/auth/login",
+  LOGIN: "/api/auth/login?useCookies=true",
 };
 
 export const FORM_FIELDS = {

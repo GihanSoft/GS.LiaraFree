@@ -4,8 +4,10 @@ import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { NavLink } from "react-router";
+import { useAuth } from "../../features/auth/AuthProvider";
 
 export default function Header() {
+  const { user, logout } = useAuth();
   return (
     <AppBar position="sticky">
       <Toolbar>
@@ -13,9 +15,13 @@ export default function Header() {
           <Typography component="h1">GS Liara</Typography>
         </Button>
         <Box sx={{ flex: "auto" }} />
-        <Button component={NavLink} to="/auth/login">
-          Login
-        </Button>
+        {user ? (
+          <Button onClick={() => logout()}>Logout</Button>
+        ) : (
+          <Button component={NavLink} to="/auth/login">
+            Login
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );

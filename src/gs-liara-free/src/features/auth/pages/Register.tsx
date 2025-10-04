@@ -33,7 +33,7 @@ const Register = () => {
       );
 
       const loginUrl: To = {
-        pathname: "/login",
+        pathname: "/auth/login",
         search: search.toString(),
       };
       navigate(loginUrl);
