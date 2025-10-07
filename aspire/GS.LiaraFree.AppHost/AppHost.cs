@@ -1,4 +1,6 @@
-﻿var builder = DistributedApplication.CreateBuilder(args);
+﻿using System.Diagnostics;
+
+var builder = DistributedApplication.CreateBuilder(args);
 
 var pgSql = builder.AddPostgres("pg-sql")
     .WithDataVolume()
@@ -16,6 +18,17 @@ var main = builder.AddProject<Projects.GS_LiaraFree_Main>("main")
     .WithReference(mailPit)//.WaitFor(mailpit)
         .WithEnvironment("Email__DefaultFromEmail", "info@localhost")
     ;
+
+if (!File.Exists("../../src/gs-liara-free/obj/dev-cert.key"))
+{
+    ProcessStartInfo process = new("dotnet", ["dev-certs", "https", "-ep", "../../src/gs-liara-free/obj/dev-cert.crt", "--format", "pem", "-np"])
+    {
+        UseShellExecute = true,
+        CreateNoWindow = true,
+        WindowStyle = ProcessWindowStyle.Hidden,
+    };
+    Process.Start(process);
+}
 
 builder.AddBunApp("frontend", "../../src/gs-liara-free", "dev")
     .WithReference(main).WaitFor(main)
