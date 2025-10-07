@@ -28,8 +28,4 @@
     <ProjectReference Include="..\..\aspire\GS.LiaraFree.ServiceDefaults\GS.LiaraFree.ServiceDefaults.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
 </Project>

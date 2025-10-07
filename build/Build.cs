@@ -91,5 +91,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             WwwRootDir.CreateOrCleanDirectory();
+            var nothingTxt = (WwwRootDir / "nothing.txt").TouchFile();
+            nothingTxt.WriteAllText("just a placeholder to keep www root alive with git\r\n");
         });
 }
