@@ -1,0 +1,12 @@
+meta {
+  name: manage
+  seq: 3
+}
+
+auth {
+  mode: inherit
+}
+
+vars:pre-request {
+  manage_prefix: {{auth_prefix}}/manage
+}

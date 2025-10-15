@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{base_url}}/api/security/login?useCookies=true
+  url: {{base_url}}/api/{{auth_prefix}}/login?useCookies=true
   body: json
   auth: inherit
 }
