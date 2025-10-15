@@ -1,5 +1,6 @@
 ﻿using GS.LiaraFree.Main.Shared.Data;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
 namespace GS.LiaraFree.Main.Features.Auth;
@@ -10,6 +11,7 @@ internal static class AuthComposition
     {
         services.AddAuthentication();
         services.AddAuthorization();
+        services.AddAuthorizationBuilder().SetFallbackPolicy(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build());
 
         services.AddIdentityApiEndpoints<IdentityUser>(
             opt =>
@@ -26,7 +28,7 @@ internal static class AuthComposition
 
     public static IEndpointRouteBuilder MapAuth(this IEndpointRouteBuilder app)
     {
-        var authGroup = app.MapGroup("auth");
+        var authGroup = app.MapGroup("auth").AllowAnonymous();
         authGroup.MapIdentityApi<IdentityUser>();
         authGroup.MapPost("/logout", (SignInManager<IdentityUser> signInManager) => signInManager.SignOutAsync());
         return app;

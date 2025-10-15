@@ -84,7 +84,7 @@ try
     var apiGroup = app.MapGroup("api");
     apiGroup.MapAuth();
 
-    app.MapFallbackToFile("index.html");
+    app.MapFallbackToFile("index.html").AllowAnonymous();
 
     // -----------------------------
     // Running app
