@@ -36,7 +36,7 @@ try
     // -----------------------------
     builder.Services.Configure<ForwardedHeadersOptions>(a =>
     {
-        a.KnownNetworks.Clear();
+        a.KnownIPNetworks.Clear();
         a.KnownProxies.Clear();
         a.ForwardedHeaders = ForwardedHeaders.All;
     });
