@@ -1,4 +1,5 @@
-﻿using GS.LiaraFree.Main.Features.Auth;
+﻿using GS.LiaraFree.Main.Features.Admin;
+using GS.LiaraFree.Main.Features.Auth;
 using GS.LiaraFree.Main.Shared.Data;
 using GS.LiaraFree.Main.Shared.Email;
 
@@ -83,6 +84,7 @@ try
 
     var apiGroup = app.MapGroup("api");
     apiGroup.MapAuth();
+    apiGroup.MapAdmin();
 
     app.MapFallbackToFile("index.html").AllowAnonymous();
 

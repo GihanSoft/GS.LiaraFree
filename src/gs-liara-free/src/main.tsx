@@ -2,7 +2,7 @@ import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
-import App from "./App.tsx";
+import Routes from "./Routes.tsx";
 import AuthProvider from "./features/auth/AuthProvider.tsx";
 import "./index.css";
 
@@ -24,7 +24,7 @@ createRoot(document.getElementById("root")!).render(
       <CssBaseline enableColorScheme />
       <AuthProvider>
         <BrowserRouter>
-          <App />
+          <Routes />
         </BrowserRouter>
       </AuthProvider>
     </ThemeProvider>
