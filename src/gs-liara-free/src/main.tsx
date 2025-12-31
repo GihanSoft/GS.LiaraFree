@@ -23,11 +23,11 @@ createRoot(document.getElementById("root")!).render(
       disableTransitionOnChange
     >
       <CssBaseline enableColorScheme />
-      <AuthProvider>
-        <BrowserRouter>
+      <BrowserRouter>
+        <AuthProvider>
           <Routes />
-        </BrowserRouter>
-      </AuthProvider>
+        </AuthProvider>
+      </BrowserRouter>
     </ThemeProvider>
   </StrictMode>
 );
