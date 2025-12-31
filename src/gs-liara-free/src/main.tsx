@@ -1,4 +1,5 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import "Vazirmatn/Vazirmatn-Variable-font-face.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
@@ -10,7 +11,7 @@ const darkTheme = createTheme({
   colorSchemes: { dark: true, light: true },
   defaultColorScheme: "dark",
   typography: {
-    fontFamily: "Vazirmatn",
+    fontFamily: '"Vazirmatn", "Roboto", "Helvetica", "Arial", sans-serif',
   },
 });
 
