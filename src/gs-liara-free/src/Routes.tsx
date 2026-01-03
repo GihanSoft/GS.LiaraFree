@@ -4,17 +4,18 @@ import Register from "./features/auth/pages/Register";
 import MainLayout from "./shared/layouts/MainLayout";
 import Home from "./shared/pages/Home";
 import AdminDashboardPage from "./features/admin/dashboard/AdminDashboardPage";
-import ProtectedLayout from "./features/auth/ProtectedLayout";
+import RequireAuth from "./features/auth/RequireAuth";
 
 function Routes() {
   return (
     <ReactRoutes>
+      <Route path="auth/login" element={<Login />} />
+      <Route path="auth/register" element={<Register />} />
+
       <Route element={<MainLayout />}>
         <Route index element={<Home />} />
-        <Route path="auth/login" element={<Login />} />
-        <Route path="auth/register" element={<Register />} />
 
-        <Route path="admin" element={<ProtectedLayout />}>
+        <Route path="admin" element={<RequireAuth />}>
           <Route index element={<AdminDashboardPage />} />
         </Route>
       </Route>
