@@ -5,6 +5,7 @@ import MainLayout from "./shared/layouts/MainLayout";
 import Home from "./shared/pages/Home";
 import AdminDashboardPage from "./features/admin/dashboard/AdminDashboardPage";
 import RequireAuth from "./features/auth/RequireAuth";
+import AdminLayout from "./features/admin/AdminLayout";
 
 function Routes() {
   return (
@@ -14,8 +15,10 @@ function Routes() {
 
       <Route element={<MainLayout />}>
         <Route index element={<Home />} />
+      </Route>
 
-        <Route path="admin" element={<RequireAuth />}>
+      <Route element={<RequireAuth />}>
+        <Route path="admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboardPage />} />
         </Route>
       </Route>
