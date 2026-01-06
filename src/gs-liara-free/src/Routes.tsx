@@ -1,6 +1,6 @@
 import { Route, Routes as ReactRoutes } from "react-router";
-import Login from "./features/auth/pages/Login";
-import Register from "./features/auth/pages/Register";
+import Login from "./features/auth/login/Login";
+import Register from "./features/auth/register/Register";
 import MainLayout from "./shared/layouts/MainLayout";
 import Home from "./shared/pages/Home";
 import AdminDashboardPage from "./features/admin/dashboard/AdminDashboardPage";
