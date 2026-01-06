@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import { NavLink } from "react-router";
 import { useAuth } from "../../features/auth/AuthProvider";
 import TrimmedTextBox from "../components/TrimmedTextBox";
+import AuthView from "../../features/auth/AuthView";
 
 interface HeaderProps {
   /**
@@ -18,7 +19,7 @@ interface HeaderProps {
 }
 
 export default function Header(props: HeaderProps) {
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
   return (
     <AppBar {...props}>
       <Toolbar>
@@ -26,15 +27,18 @@ export default function Header(props: HeaderProps) {
           <Typography component="h1">GS Liara</Typography>
         </Button>
         <Box sx={{ flex: "auto" }} />
-        {user ? (
-          <Button onClick={() => logout()}>
-            <TrimmedTextBox>Logout</TrimmedTextBox>
-          </Button>
-        ) : (
-          <Button component={NavLink} to="/auth/login">
-            Login
-          </Button>
-        )}
+        <AuthView
+          authenticated={
+            <Button onClick={() => logout()}>
+              <TrimmedTextBox>Logout</TrimmedTextBox>
+            </Button>
+          }
+          anonymous={
+            <Button component={NavLink} to="/auth/login">
+              Login
+            </Button>
+          }
+        />
       </Toolbar>
     </AppBar>
   );
