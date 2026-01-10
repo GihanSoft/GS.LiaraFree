@@ -51,7 +51,8 @@ interface MenuProp {
 }
 
 function ComponentMenu(props: MenuProp) {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
+  const avatarLetter = user?.email?.at(0)?.toUpperCase() || "?";
 
   return (
     <Menu
@@ -71,14 +72,12 @@ function ComponentMenu(props: MenuProp) {
       transformOrigin={{ horizontal: "right", vertical: "top" }}
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
-      {/* <MenuItem component={NavLink} to="/me">
-              <Avatar>
-                <TrimmedTextBox>
-                  {user?.email.at(0)?.toUpperCase()}
-                </TrimmedTextBox>
-              </Avatar>
-              <span>Profile</span>
-            </MenuItem> */}
+      <MenuItem component={NavLink} to="/me">
+        <Avatar>
+          <TrimmedTextBox>{avatarLetter}</TrimmedTextBox>
+        </Avatar>
+        <span>Profile</span>
+      </MenuItem>
       <MenuItem onClick={logout}>
         <ListItemIcon>
           <FontAwesomeIcon icon={faSignOut} size="sm" />
@@ -91,6 +90,7 @@ function ComponentMenu(props: MenuProp) {
 
 export default function AuthNavbarWidget() {
   const { user } = useAuth();
+  const avatarLetter = user?.email?.at(0)?.toUpperCase() || "?";
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement>();
   const handleClick = (ev: MouseEvent<HTMLButtonElement>) =>
@@ -112,9 +112,7 @@ export default function AuthNavbarWidget() {
               aria-expanded={isOpen ? "true" : undefined}
             >
               <Avatar sx={{ width: 32, height: 32 }}>
-                <TrimmedTextBox>
-                  {user?.email.at(0)?.toUpperCase() || "?"}
-                </TrimmedTextBox>
+                <TrimmedTextBox>{avatarLetter}</TrimmedTextBox>
               </Avatar>
             </IconButton>
           </Tooltip>

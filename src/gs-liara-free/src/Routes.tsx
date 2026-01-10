@@ -5,6 +5,9 @@ import MainLayout from "./shared/layouts/MainLayout";
 import Home from "./shared/pages/Home";
 import AdminDashboardPage from "./features/admin/dashboard/AdminDashboardPage";
 import RequireAuth from "./features/auth/RequireAuth";
+import MeLayout from "./features/auth/me/MeLayout";
+import MePage from "./features/auth/me/MePage";
+import PasswordPage from "./features/auth/me/PasswordPage";
 import AdminLayout from "./features/admin/AdminLayout";
 
 function Routes() {
@@ -18,6 +21,11 @@ function Routes() {
       </Route>
 
       <Route element={<RequireAuth />}>
+        <Route path="me" element={<MeLayout />}>
+          <Route index element={<MePage />} />
+          <Route path="security/password" element={<PasswordPage />} />
+        </Route>
+
         <Route path="admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboardPage />} />
         </Route>
