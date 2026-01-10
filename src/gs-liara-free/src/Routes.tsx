@@ -9,6 +9,7 @@ import MeLayout from "./features/auth/me/MeLayout";
 import MePage from "./features/auth/me/MePage";
 import PasswordPage from "./features/auth/me/PasswordPage";
 import AdminLayout from "./features/admin/AdminLayout";
+import NotFoundPage from "./shared/pages/NotFoundPage";
 
 function Routes() {
   return (
@@ -18,6 +19,7 @@ function Routes() {
 
       <Route element={<MainLayout />}>
         <Route index element={<Home />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
 
       <Route element={<RequireAuth />}>
