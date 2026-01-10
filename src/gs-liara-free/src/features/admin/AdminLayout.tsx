@@ -1,22 +1,21 @@
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import { NavLink, Outlet } from "react-router";
-import IconButton from "@mui/material/IconButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import List from "@mui/material/List";
 import Drawer from "@mui/material/Drawer";
-import { useState, type MouseEventHandler } from "react";
-import { useAuth } from "../auth/AuthProvider";
-import TrimmedTextBox from "../../shared/components/TrimmedTextBox";
-import Stack from "@mui/material/Stack";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import AuthView from "../auth/AuthView";
+import Stack from "@mui/material/Stack";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { useState, type MouseEventHandler } from "react";
+import { NavLink, Outlet } from "react-router";
+import TrimmedTextBox from "../../shared/components/TrimmedTextBox";
+import AuthAction from "../../shared/layouts/AuthNavbarWidget";
 
 const drawerWidth = 240;
 
@@ -38,7 +37,6 @@ interface HeaderProps {
 }
 
 const Header = (props: HeaderProps) => {
-  const { logout } = useAuth();
   return (
     <Toolbar>
       <IconButton
@@ -56,18 +54,7 @@ const Header = (props: HeaderProps) => {
         </Button>
       </Box>
 
-      <AuthView
-        authenticated={
-          <Button onClick={() => logout()}>
-            <TrimmedTextBox>Logout</TrimmedTextBox>
-          </Button>
-        }
-        anonymous={
-          <Button component={NavLink} to="/auth/login">
-            Login
-          </Button>
-        }
-      />
+      <AuthAction />
     </Toolbar>
   );
 };

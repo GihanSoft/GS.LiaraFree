@@ -4,9 +4,7 @@ import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { NavLink } from "react-router";
-import { useAuth } from "../../features/auth/AuthProvider";
-import TrimmedTextBox from "../components/TrimmedTextBox";
-import AuthView from "../../features/auth/AuthView";
+import AuthAction from "./AuthNavbarWidget";
 
 interface HeaderProps {
   /**
@@ -19,7 +17,6 @@ interface HeaderProps {
 }
 
 export default function Header(props: HeaderProps) {
-  const { logout } = useAuth();
   return (
     <AppBar {...props}>
       <Toolbar>
@@ -27,18 +24,7 @@ export default function Header(props: HeaderProps) {
           <Typography component="h1">GS Liara</Typography>
         </Button>
         <Box sx={{ flex: "auto" }} />
-        <AuthView
-          authenticated={
-            <Button onClick={() => logout()}>
-              <TrimmedTextBox>Logout</TrimmedTextBox>
-            </Button>
-          }
-          anonymous={
-            <Button component={NavLink} to="/auth/login">
-              Login
-            </Button>
-          }
-        />
+        <AuthAction />
       </Toolbar>
     </AppBar>
   );
