@@ -6,7 +6,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import api, { UNAUTHORIZED_EVENT } from "../../shared/api";
+import api, { onUnauthorized } from "../../shared/api";
 
 const API_ENDPOINTS = {
   LOGOUT: "/api/auth/logout",
@@ -73,10 +73,9 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       revalidate();
     };
 
-    window.addEventListener(UNAUTHORIZED_EVENT, handleUnauthorized);
-
+    const unSubscribe = onUnauthorized(handleUnauthorized);
     return () => {
-      window.removeEventListener(UNAUTHORIZED_EVENT, handleUnauthorized);
+      unSubscribe();
     };
   }, [revalidate]);
 
