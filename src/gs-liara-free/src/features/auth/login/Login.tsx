@@ -13,6 +13,7 @@ import { NavLink, useNavigate, useSearchParams } from "react-router";
 import PasswordField from "../../../shared/components/PasswordField";
 import { useAuth } from "../AuthProvider";
 import { FORM_FIELDS, handleAction, initialState } from "./Login.actions";
+import Alert from "@mui/material/Alert";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -74,7 +75,7 @@ const Login = () => {
         </Typography>
 
         {showRegistrationSuccess && (
-          <Typography>Registration successful! Please log in.</Typography>
+          <Alert severity="success">Registration successful! Please log in.</Alert>
         )}
 
         {state.errors.formErrors.length > 0 && (
