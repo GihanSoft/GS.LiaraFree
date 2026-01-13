@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <UserSecretsId>664778f2-c38d-49ac-abb3-2c78b8804aa3</UserSecretsId>
+    <UserSecretsId>gs_liara_aspire_664778f2-c38d-49ac-abb3-2c78b8804aa3</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
