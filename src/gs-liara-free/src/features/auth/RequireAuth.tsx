@@ -16,7 +16,7 @@ const FullPageSpinner = () => {
   );
 };
 
-const ProtectedLayout = () => {
+const RequireAuth = () => {
   const { user, isPending } = useAuth();
   const location = useLocation();
 
@@ -39,4 +39,4 @@ const ProtectedLayout = () => {
   return <Outlet />;
 };
 
-export default ProtectedLayout;
+export default RequireAuth;

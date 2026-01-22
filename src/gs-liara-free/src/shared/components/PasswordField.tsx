@@ -4,14 +4,13 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField, {
   type TextFieldProps,
-  type TextFieldVariants,
 } from "@mui/material/TextField";
-import { useState } from "react";
+import { useState, type HTMLInputAutoCompleteAttribute } from "react";
 
-const PasswordField = <Variant extends TextFieldVariants>(
+const PasswordField = (
   props: {
-    variant?: Variant;
-  } & Omit<TextFieldProps, "variant">
+    autoComplete?: HTMLInputAutoCompleteAttribute;
+  } & Omit<TextFieldProps, "autoComplete">
 ) => {
   const [isVisible, setIsVisible] = useState(false);
 
