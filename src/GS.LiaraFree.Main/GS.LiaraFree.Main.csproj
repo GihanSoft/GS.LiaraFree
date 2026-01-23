@@ -10,12 +10,15 @@
     <PackageReference Include="FluentEmail.Liquid" />
     <PackageReference Include="MailKit" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Serilog.Sinks.OpenTelemetry" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Serilog.AspNetCore" />
-    <PackageReference Include="Serilog.Sinks.OpenTelemetry" />
   </ItemGroup>
 
   <ItemGroup>

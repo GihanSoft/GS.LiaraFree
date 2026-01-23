@@ -40,7 +40,6 @@ class Build : NukeBuild
                 .AssertZeroExitCode();
         });
 
-
     Target BuildFrontend => _ => _
         .DependsOn(Restore)
         .Before(Compile)
@@ -53,7 +52,6 @@ class Build : NukeBuild
                 .Copy(WwwRootDir, ExistsPolicy.MergeAndOverwrite)
                 ;
         });
-
 
     Target Compile => _ => _
         .DependsOn(Restore)
