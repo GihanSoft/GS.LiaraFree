@@ -80,7 +80,7 @@ try
     // Endpoint mappings
     // -----------------------------
     app.MapDefaultEndpoints();
-    app.MapStaticAssets();
+    app.MapStaticAssets().AllowAnonymous();
 
     var apiGroup = app.MapGroup("api");
     apiGroup.MapAuth();
