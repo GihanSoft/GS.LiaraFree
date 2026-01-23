@@ -1,15 +1,17 @@
 ﻿using FluentEmail.Core;
+using FluentEmail.Core.Models;
 
 using Microsoft.AspNetCore.Identity;
 
 namespace GS.LiaraFree.Main.Features.Auth;
 
-internal class AuthEmailSender(IHttpContextAccessor _httpContextAccessor, IServiceProvider _serviceProvider) : IEmailSender<IdentityUser>
+internal class AuthEmailSender(IHttpContextAccessor _httpContextAccessor, IServiceProvider _serviceProvider, ILogger<AuthEmailSender> _logger) : IEmailSender<IdentityUser>
 {
     private readonly IHttpContextAccessor _httpContextAccessor = _httpContextAccessor;
     private readonly IServiceProvider _serviceProvider = _serviceProvider;
+    private readonly ILogger<AuthEmailSender> _logger = _logger;
 
-    private async ValueTask UseFluentEmail(Func<IFluentEmail, ValueTask> func)
+    private async ValueTask UseFluentEmail(Func<IFluentEmail, ValueTask<SendResponse>> func)
     {
         AsyncServiceScope? serviceScope = null;
         try
@@ -22,7 +24,11 @@ internal class AuthEmailSender(IHttpContextAccessor _httpContextAccessor, IServi
             }
 
             var fluentEmail = serviceProvider.GetRequiredService<IFluentEmail>();
-            await func.Invoke(fluentEmail);
+            var response = await func.Invoke(fluentEmail);
+            if (response.Successful == false)
+            {
+                _logger.LogError("error in sending email: {ErrorMessages}", [response.ErrorMessages]);
+            }
         }
         finally
         {
