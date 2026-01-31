@@ -30,7 +30,7 @@ internal static class AuthComposition
     {
         var authGroup = app.MapGroup("auth").AllowAnonymous();
         authGroup.MapIdentityApi<IdentityUser>();
-        authGroup.MapPost("/logout", (SignInManager<IdentityUser> signInManager) => signInManager.SignOutAsync());
+        authGroup.MapPost("/logout", () => TypedResults.IdentitySignOut<IdentityUser>());
         return app;
     }
 }
