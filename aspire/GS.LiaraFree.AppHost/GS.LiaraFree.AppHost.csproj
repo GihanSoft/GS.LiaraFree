@@ -1,8 +1,8 @@
-<Project Sdk="Aspire.AppHost.Sdk/13.0.2">
+<Project Sdk="Aspire.AppHost.Sdk/13.1.0">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <UserSecretsId>gs_liara_aspire_664778f2-c38d-49ac-abb3-2c78b8804aa3</UserSecretsId>
+    <UserSecretsId>gs-liara-aspire-664778f2-c38d-49ac-abb3-2c78b8804aa3</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
