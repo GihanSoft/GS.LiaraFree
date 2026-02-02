@@ -36,6 +36,9 @@ namespace GS.LiaraFree.Main.Shared.Data.Migrations
                 schema: "security",
                 newName: "asp_net_user_claims",
                 newSchema: "auth");
+
+            migrationBuilder.DropSchema(
+                name: "security");
         }
 
         /// <inheritdoc />
@@ -67,6 +70,9 @@ namespace GS.LiaraFree.Main.Shared.Data.Migrations
                 schema: "auth",
                 newName: "asp_net_user_claims",
                 newSchema: "security");
+
+            migrationBuilder.DropSchema(
+                name: "auth");
         }
     }
 }

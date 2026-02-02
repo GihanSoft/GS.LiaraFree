@@ -1,0 +1,21 @@
+meta {
+  name: transfer
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{base_url}}/api/{{ownership_prefix}}?newOwnerUserId=41a30a16-8b89-4303-a287-3147dc77a1df
+  body: none
+  auth: inherit
+}
+
+params:query {
+  newOwnerUserId: 41a30a16-8b89-4303-a287-3147dc77a1df
+  ~newOwnerUserId: afd45b8e-902f-4e92-af74-62430065da34
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
