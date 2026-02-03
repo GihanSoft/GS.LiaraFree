@@ -1,4 +1,5 @@
 ﻿using GS.LiaraFree.Main.Features.Admin;
+using GS.LiaraFree.Main.Features.Admin.Ownership;
 using GS.LiaraFree.Main.Features.Auth;
 using GS.LiaraFree.Main.Shared.Data;
 using GS.LiaraFree.Main.Shared.Email;
@@ -53,6 +54,7 @@ try
     builder.AddEmail();
 
     builder.Services.AddAuth();
+    builder.AddAdminFeature();
 
     // -----------------------------
     // Build
@@ -74,6 +76,8 @@ try
     app.UseAuthentication();
     app.UseAuthorization();
 
+    app.UseRateLimiter();
+
     app.UseEndpoints(_ => { });
 
     // -----------------------------
@@ -84,7 +88,7 @@ try
 
     var apiGroup = app.MapGroup("api");
     apiGroup.MapAuth();
-    apiGroup.MapAdmin();
+    apiGroup.MapAdminFeature();
 
     app.MapFallbackToFile("index.html").AllowAnonymous();
 

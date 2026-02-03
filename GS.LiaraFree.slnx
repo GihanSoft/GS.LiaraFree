@@ -1,0 +1,26 @@
+<Solution>
+  <Folder Name="/aspire/">
+    <Project Path="aspire/GS.LiaraFree.AppHost/GS.LiaraFree.AppHost.csproj" />
+    <Project Path="aspire/GS.LiaraFree.ServiceDefaults/GS.LiaraFree.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/gs-liara-free/gs-liara-free.esproj">
+      <Build />
+      <Deploy />
+    </Project>
+    <Project Path="src/GS.LiaraFree.Main/GS.LiaraFree.Main.csproj" />
+  </Folder>
+  <Folder Name="/[root]/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path=".gitmodules" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="liara.json" />
+    <File Path="nuget.config" />
+  </Folder>
+  <Project Path="build/_build.csproj">
+    <Build Project="false" />
+  </Project>
+</Solution>

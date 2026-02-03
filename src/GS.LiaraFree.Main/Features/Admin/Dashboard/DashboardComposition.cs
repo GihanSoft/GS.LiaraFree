@@ -12,7 +12,7 @@ internal static class DashboardComposition
     {
         public void MapDashboard()
         {
-            var group = app.MapGroup("dashboard");
+            var group = app.MapGroup("dashboard").RequireAuthorization([Constants.AdminAuthPolicy]);
             group.MapGet("/", GetDashboardAsync);
         }
     }
